@@ -15,7 +15,6 @@ import '../../domain/repositories/number_info_repository.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // Presentation
   sl.registerFactory(() => NumberInfoBloc(
         getNumberInfo: sl(),
         getRandomNumberInfo: sl(),
@@ -24,28 +23,27 @@ Future<void> init() async {
         inputConverter: sl(),
       ));
 
-  // Use cases
   sl.registerLazySingleton(() => GetNumberInfo(sl()));
   sl.registerLazySingleton(() => GetRandomNumberInfo(sl()));
   sl.registerLazySingleton(() => GetSavedNumberInfo(sl()));
   sl.registerLazySingleton(() => SaveNumberInfo(sl()));
 
-  // Repository
+
   sl.registerLazySingleton<NumberInfoRepository>(() => NumberInfoRepositoryImpl(
         remoteDataSource: sl(),
         localDataSource: sl(),
       ));
 
-  // Data sources
+  
   sl.registerLazySingleton<NumberRemoteDataSource>(
       () => NumberRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<NumberLocalDataSource>(
       () => NumberLocalDataSourceImpl(sharedPreferences: sl()));
 
-  // Core
+  
   sl.registerLazySingleton(() => InputConverter());
 
-  // External
+ 
   sl.registerLazySingleton(() => http.Client());
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
