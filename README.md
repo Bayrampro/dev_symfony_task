@@ -1,16 +1,62 @@
 # dev_symfony_task
 
-Task for DevSymfony.io
+Приложение для получения интересных фактов о числах.
 
-## Getting Started
+## Описание
 
-This project is a starting point for a Flutter application.
+Это Flutter-приложение позволяет пользователю:
+- Ввести любое число и получить интересный факт о нем.
+- Получить случайный факт о числе без ввода.
+- Сохранять понравившиеся факты для быстрого доступа.
 
-A few resources to get you started if this is your first Flutter project:
+## Основные экраны
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Экран выбора фактов** — ввод числа, получение факта, запрос случайного факта.
+- **Экран сохранённых фактов** — просмотр и управление ранее сохранёнными фактами.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Установка и запуск
+
+1. **Клонируйте репозиторий:**
+   ```sh
+   git clone https://github.com/Bayrampro/dev_symfony_task.git
+   cd dev_symfony_task
+   ```
+
+2. **Установите зависимости:**
+   ```sh
+   flutter pub get
+   ```
+
+3. **Запуск приложения:**
+   ```sh
+   flutter run
+   ```
+
+## Сборка
+
+- **Android:**
+  ```sh
+  flutter build apk
+  ```
+- **iOS:**
+  ```sh
+  flutter build ios
+  ```
+
+## Тестирование
+
+Для запуска тестов выполните:
+```sh
+flutter test
+```
+
+## Используемые технологии
+
+- Flutter
+- flutter_bloc
+- go_router
+- get_it
+- http
+- shared_preferences
+- dartz
+- equatable

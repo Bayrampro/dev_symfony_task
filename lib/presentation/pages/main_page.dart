@@ -16,7 +16,8 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin {
+class _MainPageState extends State<MainPage>
+    with SingleTickerProviderStateMixin {
   final TextEditingController _controller = TextEditingController();
   String _selectedType = 'trivia';
   final List<String> _types = ['trivia', 'math', 'date'];
@@ -26,8 +27,14 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _animController = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
-    _fadeAnim = CurvedAnimation(parent: _animController!, curve: Curves.easeInOut);
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    _fadeAnim = CurvedAnimation(
+      parent: _animController!,
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -52,7 +59,9 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.primary,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
             ),
             onPressed: () {
               onSave();
@@ -72,8 +81,15 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text('Информация о числах', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
-          backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+          title: Text(
+            'Информация о числах',
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Theme.of(
+            context,
+          ).colorScheme.primary.withOpacity(0.8),
           elevation: 0,
           actions: [
             IconButton(
@@ -109,7 +125,9 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       onPressed: () {
@@ -120,15 +138,22 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                           ),
                         );
                       },
-                      child: const Text('Показать факт', style: TextStyle(fontSize: 16)),
+                      child: const Text(
+                        'Показать факт',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.secondary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       onPressed: () {
@@ -136,7 +161,10 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                           GetRandomNumberInfoEvent(type: _selectedType),
                         );
                       },
-                      child: const Text('Случайный факт', style: TextStyle(fontSize: 16)),
+                      child: const Text(
+                        'Случайный факт',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
                   ),
                 ],
@@ -149,26 +177,44 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                       _animController?.forward(from: 0);
                       _showResultDialog(
                         state.info.text,
-                        () => context.read<NumberInfoBloc>().add(SaveNumberInfoEvent(state.info)),
+                        () => context.read<NumberInfoBloc>().add(
+                          SaveNumberInfoEvent(state.info),
+                        ),
                       );
                     } else if (state is NumberInfoError) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(state.message)),
-                      );
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(state.message)));
                     }
                   },
                   builder: (context, state) {
                     if (state is NumberInfoLoading) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state is NumberInfoInitial) {
-                      return Center(child: Text('Введите число и выберите тип факта', style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black54)));
+                      return Center(
+                        child: Text(
+                          'Введите число и выберите тип факта',
+                          style: Theme.of(context).textTheme.bodyLarge
+                              ?.copyWith(color: Colors.black54),
+                        ),
+                      );
                     } else if (state is NumberInfoLoaded) {
                       return FadeTransition(
                         opacity: _fadeAnim!,
-                        child: NumberFactCard(text: state.info.text, type: _selectedType),
+                        child: NumberFactCard(
+                          text: state.info.text,
+                          type: _selectedType,
+                        ),
                       );
                     } else if (state is NumberInfoError) {
-                      return Center(child: Text(state.message, style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.red)));
+                      return Center(
+                        child: Text(
+                          state.message,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyLarge?.copyWith(color: Colors.red),
+                        ),
+                      );
                     }
                     return const SizedBox.shrink();
                   },
@@ -180,4 +226,4 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
       ),
     );
   }
-} 
+}
